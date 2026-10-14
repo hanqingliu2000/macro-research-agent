@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title">
+  <title id="title">Macro Research Agent</title>
+  <rect width="64" height="64" rx="10" fill="#0b1220"/>
+  <path d="M13 45V19h7l12 16 12-16h7v26h-7V30L32 45 20 30v15z" fill="#60a5fa"/>
+  <circle cx="51" cy="13" r="6" fill="#22c55e"/>
+</svg>

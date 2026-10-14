@@ -1,0 +1,27 @@
+{
+  "contract_version": "workflow-phase1a-v1",
+  "stages": ["plan", "data", "transformation", "output"],
+  "statuses": [
+    "clarifying",
+    "plan_review",
+    "acquiring",
+    "data_review",
+    "pipeline_editing",
+    "pipeline_running",
+    "output_generating",
+    "output_review",
+    "completed",
+    "failed",
+    "cancelled"
+  ],
+  "snapshot_hash": "sha256:fixture-current-snapshot",
+  "command_meta": {
+    "command_id": "command-fixture-1",
+    "idempotency_key": "fixture-1",
+    "session_id": "session-fixture-1",
+    "expected_stage": "plan",
+    "expected_snapshot_hash": "sha256:fixture-current-snapshot",
+    "actor": "user",
+    "requested_at": "2026-08-24T12:00:00Z"
+  }
+}

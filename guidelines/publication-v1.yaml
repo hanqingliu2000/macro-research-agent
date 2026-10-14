@@ -1,0 +1,67 @@
+version: "publication-v1"
+status: "approved"
+output_specification: "mra-output-spec-v2"
+locale: "en-US"
+workbook_template: "research-workbook-v1"
+visual_rubric:
+  version: "academic-publication-placeholder-v1"
+  status: "placeholder"
+  reference: "guidelines/academic-publication-placeholder-v1.md"
+  runtime: "workflow/publication_rubric.py"
+chart:
+  supported_types: ["line"]
+  title_max_characters: 90
+  maximum_series: 6
+  minimum_width: 900
+  minimum_height: 500
+  legend_position: "bottom"
+  palette: ["#0072B2", "#D55E00", "#009E73", "#CC79A7", "#E69F00", "#56B4E9"]
+  line_patterns: ["solid", "dash", "dot"]
+  missing_value_policy: "gap"
+  required_metadata: ["title", "unit", "source_note", "alt_text", "data_hash"]
+table:
+  maximum_columns: 24
+  title_max_characters: 90
+  freeze_header: true
+  enable_filters: true
+  numeric_alignment: "right"
+  missing_value_display: "…"
+  source_note_required: true
+  allowed_number_formats: ["0", "0.0", "0.00", "0.000", "0%", "0.0%", "0.00%"]
+report:
+  title_max_characters: 120
+  required_sections: ["Scope", "Data and method", "Results", "Diagnostics and limitations", "Reproducibility"]
+  require_source_note: true
+  require_causal_boundary: true
+  require_reproduction_note: true
+  missing_citations_severity: "warning"
+review:
+  blocking_rules:
+    - "GUIDELINE-VERSION-001"
+    - "SPEC-VERSION-001"
+    - "CHART-METADATA-001"
+    - "CHART-STYLE-001"
+    - "CHART-SOURCE-001"
+    - "CHART-SERIES-DATA-001"
+    - "CHART-SERIES-001"
+    - "CHART-SIZE-001"
+    - "TABLE-METADATA-001"
+    - "TABLE-STYLE-001"
+    - "TABLE-SOURCE-001"
+    - "TABLE-DUPLICATE-COLUMNS-001"
+    - "TABLE-COLUMNS-DATA-001"
+    - "TABLE-COLUMNS-001"
+    - "REPORT-METADATA-001"
+    - "REPORT-CONTENT-001"
+    - "REPORT-SECTIONS-001"
+    - "REPORT-DATA-001"
+    - "REPORT-SOURCE-001"
+    - "REPORT-CAUSAL-001"
+    - "REPORT-REPRODUCIBILITY-001"
+  warning_rules:
+    - "CHART-TITLE-001"
+    - "CHART-ALT-001"
+    - "TABLE-TITLE-001"
+    - "REPORT-ARTIFACT-REFERENCE-001"
+    - "REPORT-CITATION-001"
+    - "REPORT-TITLE-001"

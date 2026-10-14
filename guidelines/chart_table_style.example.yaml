@@ -1,0 +1,45 @@
+version: "0.1-placeholder"
+status: "superseded-by-publication-v1"
+active: false
+replacement: "guidelines/publication-v1.yaml"
+locale: "en-US"
+workbook:
+  include_source_sheet: true
+  include_provenance_sheet: true
+  include_readme_sheet: true
+chart:
+  title:
+    required: true
+  source_note:
+    required: true
+  legend:
+    position: bottom
+table:
+  source_note:
+    required: true
+  missing_value_display: "..."
+review:
+  automated:
+    - data_series_match
+    - number_format_valid
+    - source_note_present
+    - workbook_structure_valid
+  ai_visual:
+    status: planned
+    required_inputs:
+      - artifact_render
+      - artifact_specification
+      - deterministic_preflight
+      - guideline_rule_subset
+    rules:
+      - visual_hierarchy
+      - label_readability
+      - overlap_and_clipping
+      - legend_series_consistency
+      - source_note_legibility
+    output_schema: OutputReviewReport
+    requires_remote_artifact_authorization: true
+  manual:
+    - visual_hierarchy
+    - label_readability
+    - publication_fit

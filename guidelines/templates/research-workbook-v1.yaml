@@ -1,0 +1,24 @@
+version: "research-workbook-v1"
+status: "approved"
+guideline_version: "publication-v1"
+required_sheets:
+  - "Analytical Data"
+  - "Model Results"
+  - "Provenance"
+  - "Diagnostics"
+  - "Chart Data"
+conditional_sheets:
+  forecasts: "Forecasts"
+  impulse_responses: "Impulse Responses"
+required_headers:
+  "Analytical Data": ["entity_code", "indicator_code", "period", "value"]
+  "Model Results": ["job_id", "model", "observations", "dropped", "result_hash", "result_json"]
+  "Provenance": ["field", "value"]
+  "Diagnostics": ["level", "message"]
+rules:
+  frozen_header: "A2"
+  filters_on_populated_tables: true
+  formula_free_sheets: ["Analytical Data", "Chart Data"]
+  external_links_allowed: false
+  guideline_metadata_required: true
+  embedded_chart_required_when_selected: true

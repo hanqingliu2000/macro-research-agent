@@ -1,0 +1,301 @@
+{
+  "schema_version": "data-source-knowledge-v1",
+  "catalog_version": "1.2.0",
+  "purpose": "Reviewed, low-frequency discovery knowledge for Plan AI. Executable coverage remains limited to dataset entries marked available and registered by the runtime.",
+  "providers": [
+    {
+      "connector_id": "imf_data",
+      "provider_name": "International Monetary Fund",
+      "availability": "available",
+      "catalog_summary": "Global macroeconomic and financial statistics covering national accounts, prices, fiscal, external, monetary and financial-sector topics, plus IMF staff forecasts.",
+      "catalog_topics": ["inflation", "prices", "national accounts", "growth", "fiscal", "external sector", "monetary", "financial", "forecasts", "通货膨胀", "经济增长"],
+      "catalog_examples_not_executable": ["International Financial Statistics", "Balance of Payments", "Government Finance Statistics", "Direction of Trade Statistics", "Financial Access Survey"],
+      "official_catalog_url": "https://data.imf.org/en",
+      "terms_url": "https://www.imf.org/external/terms.htm",
+      "verified_on": "2026-09-11",
+      "review_interval_days": 90,
+      "datasets": [
+        {
+          "dataset_id": "CPI",
+          "provider_dataset_id": "IMF_DATA:CPI",
+          "title": "Consumer Price Index",
+          "availability": "available",
+          "description": "Consumer-price index levels by economy and COICOP 1999 category. Inflation rates require a reviewed growth transformation unless a rate series is selected elsewhere.",
+          "topics": ["inflation", "consumer prices", "price level", "cost of living", "通货膨胀", "消费者价格", "物价"],
+          "search_terms": ["cpi", "headline inflation", "food prices", "monthly inflation", "price index"],
+          "frequencies": ["monthly", "quarterly", "annual"],
+          "geographic_coverage": "Explicit IMF economy codes; no implicit aggregate substitution.",
+          "temporal_coverage": "Provider-dependent by economy and series; each request is limited to 20 years.",
+          "publication_cadence": "Mostly monthly source-country releases; availability and revisions vary by economy. Current structural metadata is checked at acquisition.",
+          "metadata_fields": ["country", "COICOP category", "frequency", "period", "unit", "scale", "observation status", "raw and normalized checksums"],
+          "indicators": [
+            {"code": "_T", "label": "All-items CPI index", "concepts": ["headline CPI", "overall consumer prices", "通胀", "物价"], "unit_or_measure": "Index level (IX)", "notes": "Use yoy_growth to derive year-on-year inflation from monthly index levels."},
+            {"code": "CP01", "label": "Food and non-alcoholic beverages CPI index", "concepts": ["food inflation", "food prices", "食品价格"], "unit_or_measure": "Index level (IX)", "notes": "COICOP 1999 division."}
+          ],
+          "constraints": ["Explicit economies, COICOP codes, frequency and dates are required.", "The current connector retrieves index levels only.", "No arbitrary IMF dataflow is executable."],
+          "documentation_urls": ["https://data.imf.org/en/Datasets/CPI", "https://data.imf.org/en/Resource-Pages/IMF-API"]
+        },
+        {
+          "dataset_id": "WEO",
+          "provider_dataset_id": "IMF_DATA:WEO",
+          "title": "World Economic Outlook",
+          "availability": "available",
+          "description": "Annual historical estimates and IMF staff projections for major macroeconomic concepts.",
+          "topics": ["growth", "inflation", "unemployment", "government finance", "general government debt", "fiscal balance", "current account", "forecasts", "economic outlook", "预测", "经济增长", "政府债务"],
+          "search_terms": ["weo", "gdp forecast", "inflation forecast", "macro forecast", "outlook", "government debt", "public debt", "debt to GDP", "fiscal debt"],
+          "frequencies": ["annual"],
+          "geographic_coverage": "IMF member economies and selected groups; executable plans require explicit reviewed economy codes.",
+          "temporal_coverage": "Generally 1980 onward with medium-term projections, subject to economy/indicator availability; each request is limited to 50 years.",
+          "publication_cadence": "Database editions are normally published twice yearly, in April and October; revisions may occur within an edition.",
+          "metadata_fields": ["country", "indicator", "frequency", "period", "unit", "scale", "observation status", "edition evidence", "raw and normalized checksums"],
+          "indicators": [
+            {"code": "PCPI", "label": "Consumer prices, index", "concepts": ["consumer price index", "price level", "inflation projection"], "unit_or_measure": "Index", "notes": "Level series."},
+            {"code": "PCPIPCH", "label": "Consumer prices, average annual percent change", "concepts": ["inflation rate", "annual inflation", "inflation forecast", "通货膨胀率"], "unit_or_measure": "Percent change", "notes": "Do not apply yoy_growth again."},
+            {"code": "NGDP_RPCH", "label": "Real GDP growth", "concepts": ["economic growth", "real output growth", "GDP forecast"], "unit_or_measure": "Percent change", "notes": null},
+            {"code": "LUR", "label": "Unemployment rate", "concepts": ["unemployment", "labour market"], "unit_or_measure": "Percent of total labor force", "notes": null},
+            {"code": "GGXWDG_NGDP", "label": "Gross debt, General government, Percent of GDP", "concepts": ["general government gross debt", "government debt to GDP", "public debt ratio", "政府债务率"], "unit_or_measure": "Percent of GDP", "notes": "WEO staff estimates and projections may differ from national fiscal statistics; confirm general-government coverage."},
+            {"code": "GGXWDG", "label": "Gross debt, General government, Domestic currency", "concepts": ["general government gross debt", "government debt level", "public debt in national currency", "政府债务余额"], "unit_or_measure": "Domestic currency with provider scale", "notes": "Preserve the WEO scale and currency context; do not compare levels across economies without a reviewed conversion."}
+          ],
+          "constraints": ["Annual frequency only.", "WEO estimates and forecasts can differ from national statistical sources.", "Exact indicator and economy codes are validated at acquisition."],
+          "documentation_urls": ["https://data.imf.org/Datasets/WEO", "https://www.imf.org/en/Publications/WEO/frequently-asked-questions"]
+        }
+      ]
+    },
+    {
+      "connector_id": "world_bank",
+      "provider_name": "World Bank",
+      "availability": "available",
+      "catalog_summary": "Global development indicators spanning economy, population, poverty, health, education, environment, infrastructure and institutions.",
+      "catalog_topics": ["development", "population", "poverty", "health", "education", "environment", "GDP", "trade", "labor", "发展", "人口"],
+      "catalog_examples_not_executable": ["Global Economic Monitor", "International Debt Statistics", "Enterprise Surveys", "Projects and Operations", "World Bank sources other than WDI source 2"],
+      "official_catalog_url": "https://datacatalog.worldbank.org/",
+      "terms_url": "https://www.worldbank.org/en/about/legal/terms-of-use-for-datasets",
+      "verified_on": "2026-09-10",
+      "review_interval_days": 90,
+      "datasets": [
+        {
+          "dataset_id": "WDI",
+          "provider_dataset_id": "World Bank source 2",
+          "title": "World Development Indicators",
+          "availability": "available",
+          "description": "Cross-country development indicators from officially recognized international sources, exposed through the World Bank Indicators API.",
+          "topics": ["GDP", "growth", "population", "inflation", "unemployment", "trade", "development", "贫困", "人口", "经济增长"],
+          "search_terms": ["wdi", "world development indicators", "development indicator", "country comparison"],
+          "frequencies": ["annual"],
+          "geographic_coverage": "Explicit ISO3 economies supported by WDI; World Bank regions and income aggregates are not executable in this slice.",
+          "temporal_coverage": "Indicator-dependent; the connector permits a reviewed range of at most 50 years.",
+          "publication_cadence": "Observation frequency is annual. Provider updates and historical revisions vary by underlying source; lastupdated is verified on every acquisition.",
+          "metadata_fields": ["source ID", "indicator code and label", "source note and organization", "country", "period", "unit", "observation status", "footnote", "lastupdated", "raw and normalized checksums"],
+          "indicators": [
+            {"code": "SP.POP.TOTL", "label": "Population, total", "concepts": ["population", "demographics", "人口"], "unit_or_measure": "People", "notes": null},
+            {"code": "NY.GDP.MKTP.CD", "label": "GDP (current US$)", "concepts": ["nominal GDP", "economic size", "GDP"], "unit_or_measure": "Current US dollars", "notes": null},
+            {"code": "NY.GDP.MKTP.KD.ZG", "label": "GDP growth (annual %)", "concepts": ["economic growth", "real GDP growth", "经济增长"], "unit_or_measure": "Annual percent", "notes": null},
+            {"code": "FP.CPI.TOTL.ZG", "label": "Inflation, consumer prices (annual %)", "concepts": ["inflation rate", "consumer prices", "通货膨胀"], "unit_or_measure": "Annual percent", "notes": "Already a rate; do not apply yoy_growth."},
+            {"code": "SL.UEM.TOTL.ZS", "label": "Unemployment, total", "concepts": ["unemployment", "labor market", "失业率"], "unit_or_measure": "Percent of total labor force", "notes": null}
+          ],
+          "constraints": ["Only source 2 (WDI) is executable.", "Official indicator codes must be verified through provider metadata.", "Explicit ISO3 economies and annual dates are required."],
+          "documentation_urls": ["https://datahelpdesk.worldbank.org/knowledgebase/articles/889392", "https://datahelpdesk.worldbank.org/knowledgebase/articles/898599-indicator-api-queries"]
+        }
+      ]
+    },
+    {
+      "connector_id": "oecd",
+      "provider_name": "Organisation for Economic Co-operation and Development",
+      "availability": "available",
+      "catalog_summary": "Comparative statistics for OECD members and partner economies across economic activity, labor, prices, trade, finance, taxation, society and environment.",
+      "catalog_topics": ["business cycle", "leading indicators", "national accounts", "labor", "prices", "trade", "productivity", "tax", "environment", "景气周期"],
+      "catalog_examples_not_executable": ["OECD Economic Outlook", "Main Economic Indicators", "Quarterly National Accounts", "labor-market datasets", "trade datasets", "tax datasets"],
+      "official_catalog_url": "https://data-explorer.oecd.org/",
+      "terms_url": "https://www.oecd.org/en/about/terms-conditions.html",
+      "verified_on": "2026-09-10",
+      "review_interval_days": 90,
+      "datasets": [
+        {
+          "dataset_id": "CLI",
+          "provider_dataset_id": "OECD.SDD.STES:DSD_STES@DF_CLI(4.1)",
+          "title": "Composite Leading Indicators",
+          "availability": "available",
+          "description": "Monthly composite indicators designed to provide early signals of turning points in economic activity relative to trend.",
+          "topics": ["business cycle", "turning points", "leading indicator", "economic activity", "景气先行指标"],
+          "search_terms": ["cli", "composite leading indicator", "recession signal", "turning point", "business cycle"],
+          "frequencies": ["monthly"],
+          "geographic_coverage": "Explicit three-letter OECD reference-area codes available in the pinned dataflow.",
+          "temporal_coverage": "Provider-dependent by reference area; the connector permits at most 50 years.",
+          "publication_cadence": "Compiled and published monthly.",
+          "metadata_fields": ["reference area", "frequency", "measure", "unit", "activity", "adjustment", "transformation", "time horizon", "methodology", "period", "observation status and attributes", "DSD version"],
+          "indicators": [
+            {"code": "LI", "label": "Composite leading indicator", "concepts": ["business-cycle turning point", "leading signal", "景气先行"], "unit_or_measure": "Amplitude-adjusted harmonised index", "notes": "Not a GDP level or forecast."}
+          ],
+          "constraints": ["Monthly LI only.", "Pinned dataflow and DSD version 4.1.", "Explicit reference areas and dates are required."],
+          "documentation_urls": ["https://www.oecd.org/en/data/insights/data-explainers/2024/04/composite-leading-indicators-frequently-asked-questions.html", "https://www.oecd.org/en/data/insights/data-explainers/2024/09/api.html"]
+        }
+      ]
+    },
+    {
+      "connector_id": "eurostat",
+      "provider_name": "Eurostat",
+      "availability": "available",
+      "catalog_summary": "Official European statistics covering economy and finance, population, labor, living conditions, industry, trade, agriculture, environment, energy, regions and government.",
+      "catalog_topics": ["European Union", "euro area", "inflation", "GDP", "labor", "population", "trade", "government finance", "energy", "欧盟", "通货膨胀"],
+      "catalog_examples_not_executable": ["national accounts", "labor-force survey", "population and migration", "international trade", "government finance", "energy and environmental accounts"],
+      "official_catalog_url": "https://ec.europa.eu/eurostat/data/database",
+      "terms_url": "https://ec.europa.eu/eurostat/help/copyright-notice",
+      "verified_on": "2026-09-10",
+      "review_interval_days": 90,
+      "datasets": [
+        {
+          "dataset_id": "HICP_INDEX",
+          "provider_dataset_id": "prc_hicp_minr",
+          "title": "Harmonised Index of Consumer Prices — monthly index",
+          "availability": "available",
+          "description": "Comparable monthly all-items consumer-price index for EU and selected European economies using ECOICOP version 2.",
+          "topics": ["inflation", "consumer prices", "euro area", "European Union", "HICP", "通货膨胀", "消费者价格"],
+          "search_terms": ["hicp", "harmonised inflation", "european inflation", "euro area inflation", "price index"],
+          "frequencies": ["monthly"],
+          "geographic_coverage": "Reviewed EU/EFTA country ISO3 mappings; aggregates and unreviewed countries are excluded.",
+          "temporal_coverage": "Provider-dependent complete series in the current ECOICOP v2 table; the connector permits at most 50 years.",
+          "publication_cadence": "HICP is released monthly. Eurostat checks for dataset and structural updates twice daily and exposes only the latest version.",
+          "metadata_fields": ["frequency", "unit", "COICOP 2018 category", "Eurostat geography", "period", "observation value and status", "provider update marker", "raw and normalized checksums"],
+          "indicators": [
+            {"code": "TOTAL", "label": "All-items HICP", "concepts": ["headline inflation", "consumer price index", "euro-area inflation", "通货膨胀"], "unit_or_measure": "Index, 2025=100 (I25)", "notes": "Use yoy_growth when an annual inflation rate is required."}
+          ],
+          "constraints": ["Monthly all-items index only.", "Current ECOICOP v2 classification and 2025=100 unit only.", "No aggregates or other HICP measures are executable."],
+          "documentation_urls": ["https://ec.europa.eu/eurostat/web/hicp/information-data", "https://ec.europa.eu/eurostat/web/user-guides/data-browser/api-data-access/api-introduction"]
+        }
+      ]
+    },
+    {
+      "connector_id": "adb",
+      "provider_name": "Asian Development Bank",
+      "availability": "available",
+      "catalog_summary": "Asia-Pacific macroeconomic, social, financial, environmental and Sustainable Development Goal indicators assembled from member economies and international sources.",
+      "catalog_topics": ["Asia Pacific", "national accounts", "population", "poverty", "labor", "prices", "finance", "government", "trade", "SDG", "亚洲", "国民账户"],
+      "catalog_examples_not_executable": ["population and social indicators", "labor force", "price indexes", "money and finance", "government finance", "international trade", "balance of payments", "SDG indicators"],
+      "official_catalog_url": "https://kidb.adb.org/",
+      "terms_url": "https://kidb.adb.org/terms",
+      "verified_on": "2026-09-10",
+      "review_interval_days": 90,
+      "datasets": [
+        {
+          "dataset_id": "NATIONAL_ACCOUNTS",
+          "provider_dataset_id": "ADB:DF_NA(1.0)",
+          "title": "Key Indicators National Accounts",
+          "availability": "available",
+          "description": "Annual current-local-currency GDP and gross value added for reviewed ADB member-economy mappings.",
+          "topics": ["GDP", "gross value added", "national accounts", "economic size", "Asia Pacific", "国内生产总值", "增加值"],
+          "search_terms": ["national accounts", "nominal GDP", "current local currency", "value added", "adb member economy"],
+          "frequencies": ["annual"],
+          "geographic_coverage": "Reviewed ISO3-to-ADB economy-code mappings for Asia-Pacific members and selected comparator economies.",
+          "temporal_coverage": "2000 through 2024 under the current API contract.",
+          "publication_cadence": "KIDB is updated biannually; the admitted national-accounts observations are annual.",
+          "metadata_fields": ["frequency", "indicator", "economy code and label", "period", "unit", "unit multiplier", "observation status", "source", "footnote", "methodology", "dataflow version"],
+          "indicators": [
+            {"code": "NGDP_XDC", "label": "Gross domestic product, current local currency", "concepts": ["nominal GDP", "economic size", "国内生产总值"], "unit_or_measure": "Current local currency with explicit unit multiplier", "notes": null},
+            {"code": "NGDPVA_XDC", "label": "Gross value added, current local currency", "concepts": ["gross value added", "sector output", "增加值"], "unit_or_measure": "Current local currency with explicit unit multiplier", "notes": null}
+          ],
+          "constraints": ["Annual frequency and 2000–2024 only.", "Only DF_NA 1.0 and the two listed indicators are executable.", "Provider economy codes are resolved through a reviewed crosswalk."],
+          "documentation_urls": ["https://kidb.adb.org/api", "https://kidb.adb.org/faq"]
+        }
+      ]
+    },
+    {
+      "connector_id": "ecb",
+      "provider_name": "European Central Bank",
+      "availability": "available",
+      "catalog_summary": "Euro area monetary, banking, financial-market, payments, prices and exchange-rate statistics published through the ECB Data Portal.",
+      "catalog_topics": ["exchange rates", "interest rates", "monetary policy", "banking", "payments", "euro area", "汇率", "货币政策"],
+      "catalog_examples_not_executable": ["key ECB interest rates", "yield curves", "money and credit", "payments statistics", "bank balance sheets"],
+      "official_catalog_url": "https://data.ecb.europa.eu/",
+      "terms_url": "https://www.ecb.europa.eu/services/disclaimer/html/index.en.html",
+      "verified_on": "2026-09-10",
+      "review_interval_days": 90,
+      "datasets": [
+        {
+          "dataset_id": "EXCHANGE_RATES",
+          "provider_dataset_id": "ECB:EXR(1.0)",
+          "title": "Euro foreign exchange reference rates — monthly averages",
+          "availability": "available",
+          "description": "Monthly averages of ECB euro reference exchange rates, quoted as units of foreign currency per euro.",
+          "topics": ["exchange rates", "euro", "currency", "financial conditions", "汇率", "欧元"],
+          "search_terms": ["ECB reference rate", "EUR USD", "euro exchange rate", "monthly FX"],
+          "frequencies": ["monthly"],
+          "geographic_coverage": "Reviewed non-euro economy ISO3-to-currency mappings; euro-area country requests are not represented as EUR/EUR rates.",
+          "temporal_coverage": "Provider-dependent by currency; each request is limited to 50 years.",
+          "publication_cadence": "Reference rates are published on TARGET working days around 16:00 CET; this slice uses provider-computed monthly averages.",
+          "metadata_fields": ["flow and version", "frequency", "currency and denominator", "exchange-rate type and suffix", "period", "unit", "observation status", "collection and compilation fields", "conditional-response validators"],
+          "indicators": [
+            {"code": "EUR_REFERENCE_RATE", "label": "Euro foreign-exchange reference rate, monthly average", "concepts": ["EUR exchange rate", "currency per euro", "foreign exchange", "汇率"], "unit_or_measure": "Foreign-currency units per euro", "notes": "Direction is foreign currency per EUR; invert only through a reviewed transformation."}
+          ],
+          "constraints": ["Pinned EXR 1.0 dimensions M.CURRENCY.EUR.SP00.A.", "Monthly averages and explicit periods only.", "History is excluded from the main response and revision status is preserved separately."],
+          "documentation_urls": ["https://data.ecb.europa.eu/help/api/data", "https://data.ecb.europa.eu/data/datasets/EXR/data-information"]
+        }
+      ]
+    },
+    {
+      "connector_id": "bis",
+      "provider_name": "Bank for International Settlements",
+      "availability": "available",
+      "catalog_summary": "International banking, securities, derivatives, property-price, credit, debt-service, liquidity, exchange-rate and central-bank statistics.",
+      "catalog_topics": ["policy rates", "central banks", "banking", "credit", "debt", "liquidity", "exchange rates", "金融", "政策利率"],
+      "catalog_examples_not_executable": ["international banking statistics", "credit to the non-financial sector", "residential property prices", "global liquidity", "debt service ratios"],
+      "official_catalog_url": "https://data.bis.org/",
+      "terms_url": "https://data.bis.org/help/legal",
+      "verified_on": "2026-09-10",
+      "review_interval_days": 90,
+      "datasets": [
+        {
+          "dataset_id": "POLICY_RATES",
+          "provider_dataset_id": "BIS:WS_CBPOL(1.0)",
+          "title": "Central bank policy rates",
+          "availability": "available",
+          "description": "Long monthly end-of-period policy-rate series selected with national central banks for advanced and emerging-market economies.",
+          "topics": ["policy rates", "monetary policy", "central banks", "interest rates", "政策利率", "货币政策"],
+          "search_terms": ["central bank rate", "policy interest rate", "Fed funds target", "monetary stance"],
+          "frequencies": ["monthly"],
+          "geographic_coverage": "Reviewed ISO3-to-BIS reference-area mappings with an exact availability check before retrieval.",
+          "temporal_coverage": "Series-dependent, with several economies extending to 1946; requests are limited to 100 years and 20,000 observations.",
+          "publication_cadence": "Daily and monthly data are refreshed as central banks publish changes; the policy-rate topic is generally updated weekly.",
+          "metadata_fields": ["dataflow and DSD version", "frequency", "reference area", "period", "unit and multiplier", "observation status", "compilation method", "source reference", "availability constraint hash"],
+          "indicators": [
+            {"code": "POLICY_RATE", "label": "Central bank policy rate", "concepts": ["policy interest rate", "monetary policy stance", "central bank rate", "政策利率"], "unit_or_measure": "Per cent per year; monthly end of period", "notes": "National concepts can differ; retain compilation metadata when comparing economies."}
+          ],
+          "constraints": ["Pinned WS_CBPOL 1.0 with FREQ and REF_AREA dimensions.", "Monthly end-of-period series only.", "No whole-flow downloads; exact availability is checked first.", "BIS does not endorse conclusions derived from its statistics."],
+          "documentation_urls": ["https://data.bis.org/topics/CBPOL", "https://stats.bis.org/api-doc/v2/"]
+        }
+      ]
+    },
+    {
+      "connector_id": "un_sdg",
+      "provider_name": "United Nations Statistics Division",
+      "availability": "available",
+      "catalog_summary": "Official Global SDG Indicators Database covering the UN Sustainable Development Goals with country, regional and disaggregated observations supplied by custodian agencies.",
+      "catalog_topics": ["SDG", "sustainable development", "poverty", "health", "education", "inequality", "environment", "GDP per capita", "可持续发展"],
+      "catalog_examples_not_executable": ["other SDG goals and indicators", "regional aggregates", "UN Data datasets outside the Global SDG Indicators Database"],
+      "official_catalog_url": "https://unstats.un.org/sdgs/dataportal",
+      "terms_url": "https://www.un.org/en/about-us/terms-of-use",
+      "verified_on": "2026-09-10",
+      "review_interval_days": 90,
+      "datasets": [
+        {
+          "dataset_id": "SDG_INDICATORS",
+          "provider_dataset_id": "Indicator 8.1.1 / series NY_GDP_PCAP",
+          "title": "SDG 8.1.1 — annual real GDP per capita growth",
+          "availability": "available",
+          "description": "Annual growth rate of real GDP per capita from the current official Global SDG Indicators release.",
+          "topics": ["SDG 8", "GDP per capita", "economic growth", "sustainable development", "人均GDP", "经济增长"],
+          "search_terms": ["SDG 8.1.1", "real GDP per capita growth", "NY_GDP_PCAP", "decent work and economic growth"],
+          "frequencies": ["annual"],
+          "geographic_coverage": "Reviewed ISO3-to-UN M49 country mappings; regions and aggregates are excluded.",
+          "temporal_coverage": "Provider-dependent by country; each request is limited to 75 years, 25 pages and 20,000 observations.",
+          "publication_cadence": "The Global SDG Indicators Database is published in named releases; the current series release is resolved and recorded at acquisition.",
+          "metadata_fields": ["goal, target, indicator and series", "release identifier", "M49 geography", "period", "value type and original value", "units", "nature", "observation status", "reporting/disaggregation dimensions", "bounds, base period, source and footnotes", "page hashes"],
+          "indicators": [
+            {"code": "NY_GDP_PCAP", "label": "Annual growth rate of real GDP per capita", "concepts": ["real GDP per capita growth", "SDG 8.1.1", "living standards", "人均GDP增长"], "unit_or_measure": "Percent per year", "notes": "Nature and reporting-type variants remain distinct; the connector does not silently choose or aggregate them."}
+          ],
+          "constraints": ["Indicator 8.1.1 and series NY_GDP_PCAP only.", "Latest official release is resolved and its identifier and metadata hash are pinned to the acquisition record.", "M49 mappings, pagination totals and all disaggregation/attribute fields are validated and preserved.", "Test or unmarked surfaces are rejected."],
+          "documentation_urls": ["https://unstats.un.org/SDGAPI/swagger/index.html", "https://unstats.un.org/sdgs/dataportal"]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,44 @@
+[
+  {
+    "case_id": "reviewed-local-quarterly-g7",
+    "reviewed": true,
+    "research_request": "Compare inflation persistence across the G7.",
+    "answers": {
+      "geography_scope": "G7",
+      "period_frequency": "2019-2024 quarterly"
+    },
+    "uploaded": true,
+    "expected": {
+      "connector_id": "local_file",
+      "frequency": "quarterly",
+      "capability_ids": [
+        "connector.local_file",
+        "transformation.apply",
+        "model.descriptive",
+        "output.review.visual"
+      ],
+      "unresolved_contains": "Confirm the geography resolution"
+    }
+  },
+  {
+    "case_id": "reviewed-planned-imf-monthly-euro-area",
+    "reviewed": true,
+    "research_request": "Compare euro-area inflation and policy rates.",
+    "answers": {
+      "geography_scope": "Euro area",
+      "period_frequency": "2019-2024 monthly"
+    },
+    "uploaded": false,
+    "expected": {
+      "connector_id": "imf_data",
+      "frequency": "monthly",
+      "capability_ids": [
+        "connector.imf_data",
+        "transformation.apply",
+        "model.descriptive",
+        "output.review.structural"
+      ],
+      "unresolved_contains": "IMF Data is planned but unavailable"
+    }
+  }
+]
